@@ -112,7 +112,6 @@ class signalProcess:
 
 		# Validate timestamp if present, and convert to milliseconds since epoch if format is datetime string
 		if "time" in self.data:
-			print self.data.keys(),data_input.keys()
 			if self.debug is True:
 				print "Validating Timestamps and Converting to ms since epoch if required\n"
 

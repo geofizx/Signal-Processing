@@ -24,8 +24,8 @@ import matplotlib.pyplot as plt
 from code import signalProcess
 
 # Determine which tests will be run with bools
-run_period = False
-run_time_register = False
+run_period = True
+run_time_register = True
 run_depike = True
 run_replace = False
 
@@ -53,8 +53,11 @@ if run_period is True:
 	lrner = signalProcess(data_in,options)
 	output = lrner.getPrimaryPeriods()
 	t_en = time.time()
-	print "Processing Time: ",t_en - t_st," secs\n"
-	print output
+	print "Primary Periodicity and SNR Processing Time: ",t_en - t_st," secs"
+	for key in output:
+		print "Signal Property Results: ",key
+		for keyname in output[key]:
+			print keyname,output[key][keyname]
 
 if run_time_register is True:
 
@@ -82,7 +85,7 @@ if run_time_register is True:
 	lrner = signalProcess(data_in,options)
 	data_out, params_out = lrner.registerTime()
 	t_en = time.time()
-	print "Processing Time: ",t_en - t_st," secs\n"
+	print "Resampling Processing Time: ",t_en - t_st," secs\n"
 	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]]
 	plt.subplot(2,1,2)
 	plt.title("Resampled time series at 50x down-sampled mean sampling rate")
@@ -105,7 +108,7 @@ if run_depike is True:
 	lrner = signalProcess(data3,options)
 	data_out = lrner.despikeSeries()
 	t_en = time.time()
-	print "Processing Time: ",t_en - t_st," secs\n"
+	print "Despike Processing Time: ",t_en - t_st," secs\n"
 
 	# plot before and after
 	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["time_series3"]]
