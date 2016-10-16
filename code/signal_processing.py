@@ -733,7 +733,7 @@ class signalProcess:
 	def getRedundant(self,input_indx,input_data,array1):
 
 		"""
-		Recursion helper method for getPrimaryPeriods() to remove nearly redundant values in periodicity array -
+		Recursive helper method for getPrimaryPeriods() to remove nearly redundant values in periodicity array -
 		i.e., periods within 1/2 minimum period of each other in series
 
 		Note: needs some refactoring
@@ -777,8 +777,5 @@ class signalProcess:
 if __name__ == "__main__":
 
 	"""
-	Class Level Tests
-
 	See /tests/signal_processing_tests.py for unit tests for this class
-
 	"""
