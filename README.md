@@ -6,7 +6,7 @@ dictionary. Time series do not have to be the same length or sampled at the same
 ####Implemented Methods####
 
     replaceNullData - method for simple replacement of a single known amplitude from input series (e.g., known error codes)
-
+                If actual NaN value replacement is desired, then set options = {'value': 'NaN'} for this method.
     despikeSeries - method for adaptive despiking with minimal distortion using Savitsky-Golay filtering, Otsu's method for
                 thresholding, and interpolation for spike data replacement. Threshold seeks to maximize inter-class
                 variance between "spike" class and "normal" class. Adapted from Feuerstein et al.
@@ -37,7 +37,7 @@ dictionary. Time series do not have to be the same length or sampled at the same
     (optional) "time" : dictionary containing key:timestamp series pairs (lists) corresponding to timestamps for each datum in "data"
     (optional) "options" (dictionary) - contains options for various methods as follows:
 
-    replaceNullData() - options["value"] (float) - single value to be replaced in all time-series input data
+    replaceNullData() - options["value"] (float or 'NaN') - single float value (or NaN) to be replaced in all time-series input data
     despikeSeries() - options["window"] (odd-integer) - single integer value to be used for local despike window
     registerTime() - options["sample"] (integer) - single factor for downsampling output (2 == 1/2 sampling of optimal sampling)
 

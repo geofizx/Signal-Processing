@@ -102,10 +102,9 @@ if run_depike is True:
 	Run despike only on key : "time_serie3". With 30-sample local despike search window
 
 	"""
-	#data3 = {"data":{"time_series3":data_in["data"]["time_series3"]},
-	#		 "time":{"time_series3":data_in["time"]["time_series3"]}}
-	data3 = {"data": {"time_series1": data_in["data"]["time_series1"]},
-			 "time": {"time_series1": data_in["time"]["time_series1"]}}
+	data3 = {"data":{"time_series3":data_in["data"]["time_series3"]},
+			 "time":{"time_series3":data_in["time"]["time_series3"]}}
+
 	t_st = time.time()
 	options = {"window":31}
 	lrner = signalProcess(data3,options)
@@ -124,24 +123,20 @@ if run_depike is True:
 
 if run_replace is True:
 	t_st = time.time()
-	#options = {"value":100.0}	# Provide value to be replaced
-	options = {"value": 'NaN'}  # Provide value to be replaced
-	#data3 = {"data":{"series1":[22.2,22.9,31.3,100.0,19.0,100.0]},"time":{"series1":
-	#		['2016-05-09T20:03:04Z','2016-05-09T20:13:04Z','2016-05-09T20:23:04Z','2016-05-09T20:33:04Z',
-	#		 '2016-05-09T20:43:04Z','2016-05-09T20:53:04Z']}}
-	data3 = {"data": {"time_series1": data_in["data"]["time_series1"]},
-			 "time": {"time_series1": data_in["time"]["time_series1"]}}
+	options = {"value":100.0}	# Provide value to be replaced
+	data3 = {"data":{"series1":[22.2,22.9,31.3,100.0,19.0,100.0]},"time":{"series1":
+			['2016-05-09T20:03:04Z','2016-05-09T20:13:04Z','2016-05-09T20:23:04Z','2016-05-09T20:33:04Z',
+			 '2016-05-09T20:43:04Z','2016-05-09T20:53:04Z']}}
 	lrner = signalProcess(data3,options)
 	data_out = lrner.replaceNullData()
 	t_en = time.time()
 	print "Processing Time: ",t_en - t_st," secs\n"
 
 	# plot before and after
-	#datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["series1"]]
-	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["time_series1"]]
+	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["series1"]]
 	for key in data_out["data"]:
 		plt.hold(True)
-		plt.plot(datetime_vals,data3["data"][key],'ko',label="Original Data")
+		plt.plot(datetime_vals,data3["data"][key],label="Original Data")
 		plt.plot(datetime_vals,data_out["data"][key],label="Replaced Data")
 		plt.legend()
 	plt.show()
