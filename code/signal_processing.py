@@ -149,8 +149,6 @@ class signalProcess:
 				else:
 					inx_null = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) <= self.small]
 					inx_ok = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) > 1]
-				print inx_null
-				print inx_ok
 				if len(inx_null) == 0:	# No replaced values in returned series
 					tmp_array[:] = dataN['data'][keys]
 
