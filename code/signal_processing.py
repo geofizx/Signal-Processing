@@ -143,8 +143,12 @@ class signalProcess:
 				samples = range(0,len(dataN['data'][keys]))
 				times = npy.asfarray(dataN['time'][keys])
 				tmp_array = npy.zeros(shape=(len(samples)),dtype=float)
-				inx_null = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) <= self.small]
-				inx_ok = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) > 1]
+				if self.value == 'NaN':
+					inx_null = [g for g in samples if npy.isnan(dataN['data'][keys][g])]
+					inx_ok = [g for g in samples if npy.isnan(dataN['data'][keys][g])]
+				else:
+					inx_null = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) <= self.small]
+					inx_ok = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) > 1]
 				print inx_null
 				print inx_ok
 				if len(inx_null) == 0:	# No replaced values in returned series
@@ -167,7 +171,10 @@ class signalProcess:
 						dataN['data'][keys][-1] = dataN['data'][keys][inx_ok[-1]]
 
 					# Re-index replaced values with lower/upper bounds set from above
-					inx_mod = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) > 1]
+					if self.value == 'NaN':
+						inx_mod = [g for g in samples if not npy.isnan(dataN['data'][keys][g])]
+					else:
+						inx_mod = [g for g in samples if npy.abs(dataN['data'][keys][g] - self.value) > 1]
 
 					# Handle interior points with linear interpolant
 					signal_intrp = interp1d(times[inx_mod],npy.asfarray(dataN['data'][keys])[inx_mod])
