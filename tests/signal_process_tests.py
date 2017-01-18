@@ -26,13 +26,12 @@ from code import signalProcess
 # Determine which tests will be run with bools
 run_period = False
 run_time_register = False
-run_depike = False
+run_depike = True
 run_replace = True
 
 print "Loading some time-series data\n"
 t_st = time.time()
-#filename = "three_time_series_data.json"
-filename = 'my-test-data.json'
+filename = "three_time_series_data.json"
 data_in = {"data":{},"time":{}}
 file1 = open(filename,"r")
 data1 = json.load(file1)
@@ -113,7 +112,7 @@ if run_depike is True:
 	print "Despike Processing Time: ",t_en - t_st," secs\n"
 
 	# plot before and after
-	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["time_series1"]]
+	datetime_vals = [datetime.fromtimestamp(int(it)) for it in data_out["time"]["time_series3"]]
 	for key in data_out["data"]:
 		plt.hold(True)
 		plt.plot(datetime_vals,data_in["data"][key],label="Original Data")
