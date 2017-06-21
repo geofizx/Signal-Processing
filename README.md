@@ -1,12 +1,13 @@
-#Signal Processing Library
+**Signal Processing Library**
 
 Time-Series signal processing class which accomodates any number of time series contained under subkeys of an input
 dictionary. Time series do not have to be the same length or sampled at the same frequencies.
 
-####Implemented Methods####
+**Implemented Methods**
 
     replaceNullData - method for simple replacement of a single known amplitude from input series (e.g., known error codes)
                 If actual NaN value replacement is desired, then set options = {'value': 'NaN'} for this method.
+		
     despikeSeries - method for adaptive despiking with minimal distortion using Savitsky-Golay filtering, Otsu's method for
                 thresholding, and interpolation for spike data replacement. Threshold seeks to maximize inter-class
                 variance between "spike" class and "normal" class. Adapted from Feuerstein et al.
@@ -31,7 +32,8 @@ dictionary. Time series do not have to be the same length or sampled at the same
 		        i.e., periods within 1/2 minimum period of each other in series will resolve to their shared maximum.
 
 
-####input####
+**input**
+    
     data_input (dictionary) - contains nested dictionaries with two high level keys: {"data" : {}, "time" :{}}
     "data" : dictionary containing key:data series pairs (lists) for each time-series to be processed (of potentially different lengths)
     (optional) "time" : dictionary containing key:timestamp series pairs (lists) corresponding to timestamps for each datum in "data"
@@ -41,7 +43,8 @@ dictionary. Time series do not have to be the same length or sampled at the same
     despikeSeries() - options["window"] (odd-integer) - single integer value to be used for local despike window
     registerTime() - options["sample"] (integer) - single factor for downsampling output (2 == 1/2 sampling of optimal sampling)
 
-####notes####
+**notes**
+
     1) sub key names under top-level key "data" must correspond to same key names under top-level key "time"
     2) if time-series lengths are different, registerTime() can be run before other methods to produce equal sampling
     3) timestamps (if included) can be of type :
@@ -50,7 +53,8 @@ dictionary. Time series do not have to be the same length or sampled at the same
 
             method validateTime() is run on class instantiation to convert any datetime strings to ms since epoch floats
 
-####return####
+**return**
+
     dictionary containing nested dictionaries with two high level keys: {"data" : {}, "time" :{} }
     "data" is dictionary containing key : data pairs (list) of resulting processed time-series data
     if registerTime() is run :
@@ -58,14 +62,17 @@ dictionary. Time series do not have to be the same length or sampled at the same
     else :
         "time" input key "time" is passed to output dictionary key "time" in milliseconds since epoch format
 
-####Usage####
+**Usage**
 
     /tests/signal_process_tests.py - example usage and tests for methods implemented here
 
-####dependencies####
-    scipy
+**dependencies**
 
-####References####
+    scipy
+    matplotlib (examples only)
+
+**References**
+
     Vlachos, Yu, & Castelli, 2005, "On Periodicity Detection and Structural Periodic Similarity"
     Feuerstein, Parker, & Boutelle, "Practical Methods for Noise Removal: Applications to Spikes, Nonstationary
                                     Quasi-Periodic Noise, and Baseline Drift"
