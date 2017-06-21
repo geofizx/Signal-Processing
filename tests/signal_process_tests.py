@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 """
-Some unit tests and usage examples for signal processing library
+Some tests and usage examples for signal processing library
 
 @Usage Examples and Tests
 Run tests for primary periods of multiple time-series data
